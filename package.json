@@ -1,0 +1,13 @@
+{
+  "name": "zta-poc-tooling",
+  "version": "1.0.0",
+  "description": "Host-side tooling for ZTA PoC demonstration",
+  "main": "generate_token.js",
+  "scripts": {
+    "generate-tokens": "node generate_token.js",
+    "generate-keys": "bash generate_keys.sh"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}

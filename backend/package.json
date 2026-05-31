@@ -1,0 +1,9 @@
+{
+  "name": "zta-backend",
+  "version": "1.0.0",
+  "description": "Internal target API resource for ZTA PoC",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

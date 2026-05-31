@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: zta-backend
+    expose:
+      - "3000"
+    networks:
+      - zta-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  pdp:
+    build:
+      context: ./pdp
+      dockerfile: Dockerfile
+    container_name: zta-pdp
+    expose:
+      - "8080"
+    volumes:
+      - ./keys:/keys:ro
+    environment:
+      - PUBLIC_KEY_PATH=/keys/public.pem
+      - PORT=8080
+    networks:
+      - zta-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  pep:
+    build:
+      context: ./pep
+      dockerfile: Dockerfile
+    container_name: zta-pep
+    ports:
+      - "443:443"
+    volumes:
+      - ./keys:/keys:ro
+    environment:
+      - PDP_URL=http://pdp:8080/validate
+      - BACKEND_URL=http://backend:3000
+      - TLS_CERT_PATH=/keys/cert.pem
+      - TLS_KEY_PATH=/keys/key.pem
+    networks:
+      - zta-network
+    depends_on:
+      - pdp
+      - backend
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+networks:
+  zta-network:
+    name: zta-poc-network
+    driver: bridge
