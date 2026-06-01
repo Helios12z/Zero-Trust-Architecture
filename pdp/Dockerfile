@@ -3,11 +3,12 @@ FROM golang:1.21-alpine AS builder
 
 WORKDIR /usr/src/app
 
-COPY go.mod ./
-# Download dependencies
-RUN go mod download
+# Copy Go module and source files
+COPY go.mod main.go ./
 
-COPY main.go ./
+# Automatically generate go.sum and download dependencies
+RUN go mod tidy
+
 # Compile static Go binary
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o pdp .
 
