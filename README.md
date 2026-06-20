@@ -9,8 +9,8 @@ The repo is a microservice backend application, written in Go and consists of 3 
   - Check the authorization header
   - Check payload parameters
 - After validating the credentials, the machine's metadata (also packed in the request) will be checked in case if there are any failures.
-<br/>
 (It is highly recommened to have a Connector implemented for integration in real life)
+<br/>
 3. Backend: A simple backend application consisting of controllers and related endpoints. The data will be returned based on request extracted from external clients.
 <br/>
 Also, the demo script is already prepared so that developers can test the flow and see how does this work. A simple logging syster is also implemented to help developers keep track with the flow. 
