@@ -7,7 +7,9 @@ The repo is a microservice backend application, written in Go and consists of 3 
 2. PDP: Acts as the credentials validator and token retention center. It validates the credentials packed in the request payload by 2 ways:
 - Check the authorization header
 - Check payload parameters
+<br/>
 After validating the credentials, the machine's metadata (also packed in the request) will be checked in case if there are any failures.
+<br/>
 (It is highly recommened to have a Connector implemented for integration in real life)
 3. Backend: A simple backend application consisting of controllers and related endpoints. The data will be returned based on request extracted from external clients.
 <br/>
